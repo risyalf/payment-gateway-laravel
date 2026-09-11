@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'payment_gateway_keys' => [
+        'borderpay' => env("BORDERPAY_KEY_TEST")
+    ],
+
 ];
