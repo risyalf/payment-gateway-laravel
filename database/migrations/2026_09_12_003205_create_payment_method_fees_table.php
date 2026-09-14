@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\PaymentMethod;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,16 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payment_methods', function (Blueprint $table) {
+        Schema::create('payment_method_fees', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->timestamps();
-            $table->string('provider');
-            $table->string('method');
-            $table->string('code');
-            $table->string('name');
-            $table->boolean('enabled')->default(true);
-
-            $table->unique(['type', 'method', 'code']);
+            $table->foreignIdFor(PaymentMethod::class)->constrained()->cascadeOnDelete();
+            $table->decimal("min_amount", 10, 4)->default(0);
+            $table->decimal("percent", 10, 4)->default(0);
+            $table->decimal("flat", 10, 4)->default(0);
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payment_methods');
+        Schema::dropIfExists('payment_method_fees');
     }
 };

@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum PaymentGatewayType: string
+enum PaymentGatewayProvider: string
 {
     case BORDERPAY = 'BORDERPAY';
 }

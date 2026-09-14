@@ -2,7 +2,7 @@
 
 namespace App\Factory;
 
-use App\Enums\PaymentGatewayType;
+use App\Enums\PaymentGatewayProvider;
 use App\Interfaces\IPaymentGateway;
 use App\Repositories\RBorderpayGateway;
 use InvalidArgumentException;
@@ -10,13 +10,13 @@ use InvalidArgumentException;
 class PaymentGatewayFactory
 {
     public static function make(
-        PaymentGatewayType $type
+        PaymentGatewayProvider $provider
     ): IPaymentGateway {
-        return match ($type) {
-            PaymentGatewayType::BORDERPAY => app(RBorderpayGateway::class),
+        return match ($provider) {
+            PaymentGatewayProvider::BORDERPAY => app(RBorderpayGateway::class),
 
             default => throw new InvalidArgumentException(
-                "Unsupported payment gateway: {$type->value}"
+                "Unsupported payment gateway: {$provider->value}"
             ),
         };
     }

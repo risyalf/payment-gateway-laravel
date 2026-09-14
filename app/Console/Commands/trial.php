@@ -2,7 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Enums\PaymentGatewayType;
+use App\Actions\SyncPaymentMethod;
+use App\Enums\PaymentGatewayProvider;
 use App\Factory\PaymentGatewayFactory;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
@@ -17,8 +18,6 @@ class trial extends Command
      */
     public function handle()
     {
-        $pg = PaymentGatewayFactory::make(PaymentGatewayType::BORDERPAY);
-
-        $pg->getPaymentMethod();
+        SyncPaymentMethod::execute(PaymentGatewayProvider::BORDERPAY);
     }
 }
