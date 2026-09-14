@@ -16,8 +16,9 @@ class RBorderpayGateway implements IPaymentGateway
     {
         $url = "/payment-methods";
         $fullUrl = $this->baseUrl . $url;
+        $token = config("services.payment_gateway_keys.borderpay");
 
-        $response = Http::withToken(config("services.payment_gateway_keys.borderpay"))
+        $response = Http::withToken($token)
             ->get($fullUrl);
 
         if ($response->status() == 200) {
